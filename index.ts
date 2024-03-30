@@ -18,6 +18,11 @@ const answer=await inquirer.prompt([{
     message:"Enter your PIN"
    
 
+},{
+  name:"accounts",
+  type:"list",
+  choices:["CurrentAccount","SavingAccount"],
+  message:"Choose an account to perform"
 }])
 let continueTransaction:boolean=true
 if(answer.pin!=user.pin){
@@ -27,7 +32,7 @@ if(answer.pin!=user.pin){
   const answer=await inquirer.prompt([{
     name:"selectedtype",
     type:"list",
-    choices:["Withdrawal","FastCash","balanceEnquiry"]
+    choices:["Deposit","Withdrawal","FastCash","balanceEnquiry"]
   },
 {
   name: "amount",
@@ -41,7 +46,14 @@ if(answer.pin!=user.pin){
   message:"How much do you want to withdraw?",
   when:(answer)=>{
     return answer.selectedtype=="Withdrawal"},
-  }
+  },
+  {
+    name:"amount",
+    type:"number",
+    message:"How much do you want to withdraw?",
+    when:(answer)=>{
+      return answer.selectedtype=="Deposit"},
+    }
 ])
 if (answer.selectedtype=="balanceEnquiry"){
 console.log(`Your current Balance is: ${user.balance}`)
@@ -55,6 +67,11 @@ continueTransaction=true
 }
 }
 else{ 
+  if(answer.amount){
+      user.balance=user.balance+answer.amount
+      console.log(`Your balance is: ${user.balance}`)
+      continueTransaction=false
+}else{ 
 if(answer.amount<=user.balance){ 
 user.balance=user.balance-answer.amount;
   console.log(`your remaining balance is:  ${user.balance}`);
@@ -65,4 +82,5 @@ else{
 }
 }
   }
+}
 }
