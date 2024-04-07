@@ -50,7 +50,7 @@ if(answer.pin!=user.pin){
   {
     name:"amount",
     type:"number",
-    message:"How much do you want to withdraw?",
+    message:"How much do you want to deposit?",
     when:(answer)=>{
       return answer.selectedtype=="Deposit"},
     }
