@@ -61,7 +61,7 @@ else {
             }
         }
         else {
-            if (answer.amount) {
+            if (answer.selectedtype === "Deposit") {
                 user.balance = user.balance + answer.amount;
                 console.log(`Your balance is: ${user.balance}`);
                 continueTransaction = false;
